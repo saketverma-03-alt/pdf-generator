@@ -7,6 +7,8 @@ import (
 
 func getTableHeaderStyle() props.Text {
 	return props.Text{
+		Top:   1,
+		Size:  8,
 		Style: fontstyle.Bold,
 	}
 }

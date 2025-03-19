@@ -72,14 +72,14 @@ type PayrollInfo struct {
 	TotalWorkingDays   int    `json:"total_working_days"`
 
 	// Calculated Data
-	CalculatedGrossMonthly      float64 `json:"calculated_gross_monthly"`
-	CalculatedDeductionMonthly  float64 `json:"calculated_deduction_monthly"`
-	CalculatedNetPayableMonthly float64 `json:"calculated_net_payable_monthly"`
+	CalculatedGrossMonthly      float64 `json:"calculated_gross_monthaly"`
+	CalculatedDeductionMonthly  float64 `json:"calculated_deduction_monthaly"`
+	CalculatedNetPayableMonthly float64 `json:"calculated_net_payable_monthaly"`
 
 	// fixed
 	FixedAmountNetPayableMonthly float64 `json:"fixed_amount_net_payable_monthly"`
-	FixedAmountDeductionMonthly  float64 `json:"fixed_amount_deduction_monthly"`
-	FixedAmountGrossMonthly      float64 `json:"fixed_amount_gross_monthly"`
+	FixedAmountDeductionMonthly  float64 `json:"fixed_amount_deduction_monthaly"`
+	FixedAmountGrossMonthly      float64 `json:"fixed_amount_gross_monthaly"`
 	FixedAmountNetPayableYearly  float64 `json:"fixed_amount_net_payable_yearly"`
 	FixedAmountDeductionYearly   float64 `json:"fixed_amount_deduction_yearly"`
 	FixedAmountGrossYearly       float64 `json:"fixed_amount_gross_yearly"`
