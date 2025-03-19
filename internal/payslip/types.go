@@ -1,13 +1,11 @@
 package payslip
 
-import "time"
-
 // Type for payslip config recived from backend
 type PayslipConfig struct {
 	LogoPlacment        string `json:"logo_placment"`
 	LogoUrl             string `json:"logo_url"`
 	Address             string `json:"address"`
-	PasswordProtection  string // NOTE: can be PAN,ADDHR,ETC,EMPCODE , should decide how meny digits it needs to be
+	PasswordProtection  string `json:"password_protaction"` // NOTE: can be PAN,ADDHR,ETC,EMPCODE , should decide how meny digits it needs to be
 	IsPasswordProtected bool   `json:"is_password_protected"`
 
 	EmployeePayrollDetail []EmployeePayrollDetail `json:"employee_payroll_detail"`
@@ -34,34 +32,34 @@ type EmployeePayrollDetail struct {
 }
 
 type ComponentData struct {
-	ID                   int       `json:"id"`
-	PayrollComponentID   int       `json:"payroll_component_id"`
-	ShortName            string    `json:"short_name"`
-	ComponentType        string    `json:"component_type"`
-	FixedAmountMonthly   float64   `json:"fixed_amount_monthly"`
-	EarningAmountMonthly float64   `json:"earning_amount_monthly"`
-	CreatedOn            time.Time `json:"created_on"`
-	ComponentName        string    `json:"component_name"`
-	EmployeePayrollID    int       `json:"employee_payroll_id"`
-	ModifiedOn           time.Time `json:"modified_on"`
-	IncludeInGross       bool      `json:"include_in_gross"`
-	FixedAmountYearly    float64   `json:"fixed_amount_yearly"`
-	EarningAmountYearly  float64   `json:"earning_amount_yearly"`
-	IsActive             bool      `json:"is_active"`
+	ID                   int     `json:"id"`
+	PayrollComponentID   int     `json:"payroll_component_id"`
+	ShortName            string  `json:"short_name"`
+	ComponentType        string  `json:"component_type"`
+	FixedAmountMonthly   float64 `json:"fixed_amount_monthaly"`
+	EarningAmountMonthly float64 `json:"earning_amount_monthaly"`
+	CreatedOn            string  `json:"created_on"`
+	ComponentName        string  `json:"component_name"`
+	EmployeePayrollID    int     `json:"employee_payroll_id"`
+	ModifiedOn           string  `json:"modified_on"`
+	IncludeInGross       bool    `json:"include_in_gross"`
+	FixedAmountYearly    float64 `json:"fixed_amount_yearly"`
+	EarningAmountYearly  float64 `json:"earning_amount_yearly"`
+	IsActive             bool    `json:"is_active"`
 }
 
 type PayrollInfo struct {
-	ID                    int       `json:"id"`
-	EmployeeID            int       `json:"employee_id"`
-	CompanyID             int       `json:"company_id"`
-	PayGroupID            int       `json:"pay_group_id"`
-	Year                  int       `json:"year"`
-	Month                 int       `json:"month"`
-	PaymentCycleStartDate time.Time `json:"payment_cycle_start_date"`
-	PaymentCycleEndDate   time.Time `json:"payment_cycle_end_date"`
-	SalaryStructureType   *string   `json:"salary_structure_type"` // Changed to pointer to allow null
-	SalaryPayOffType      *string   `json:"salary_pay_off_type"`   // Changed to pointer to allow null
-	IsPaid                bool      `json:"is_paid"`
+	ID                    int     `json:"id"`
+	EmployeeID            int     `json:"employee_id"`
+	CompanyID             int     `json:"company_id"`
+	PayGroupID            int     `json:"pay_group_id"`
+	Year                  int     `json:"year"`
+	Month                 int     `json:"month"`
+	PaymentCycleStartDate string  `json:"payment_cycle_start_date"`
+	PaymentCycleEndDate   string  `json:"payment_cycle_end_date"`
+	SalaryStructureType   *string `json:"salary_structure_type"` // Changed to pointer to allow null
+	SalaryPayOffType      *string `json:"salary_pay_off_type"`   // Changed to pointer to allow null
+	IsPaid                bool    `json:"is_paid"`
 
 	// Days & OT
 	TotalLeaveDays     int    `json:"total_leave_days"`
@@ -87,9 +85,9 @@ type PayrollInfo struct {
 	FixedAmountGrossYearly       float64 `json:"fixed_amount_gross_yearly"`
 
 	// meta data
-	CreatedBy      string    `json:"created_by"`
-	CreatedOn      time.Time `json:"created_on"`
-	ModifiedOn     time.Time `json:"modified_on"`
-	LastModifiedBy *string   `json:"last_modified_by"` // Changed to pointer to allow null
-	IsActive       bool      `json:"is_active"`
+	CreatedBy      string  `json:"created_by"`
+	CreatedOn      string  `json:"created_on"`
+	ModifiedOn     string  `json:"modified_on"`
+	LastModifiedBy *string `json:"last_modified_by"` // Changed to pointer to allow null
+	IsActive       bool    `json:"is_active"`
 }

@@ -1,44 +1,40 @@
 package payslip
 
 import (
-	"encoding/base64"
-	"fmt"
-	"io"
-	"net/http"
+	"github.com/johnfercher/maroto/v2"
+	"github.com/johnfercher/maroto/v2/pkg/config"
+	"github.com/johnfercher/maroto/v2/pkg/consts/pagesize"
+	"github.com/johnfercher/maroto/v2/pkg/core"
 )
 
-type payslipConfig struct {
-	image string
+type EmployeePayslip struct {
+	MartorInstance core.Maroto
 }
 
-/** NOTE
-* One pay group has one setting and meny employees with differnet details and components
-* varibale cmptCnfg can be shared across all payslips and need not be cloned
-*
-* Acctual challanges
-* 1. Filtering Employee Data
-* Employee Details will probably be in array of fields formate,
-* filtering data from it might be expensive as each can be of around 4-5 mb each
-* for 1000 employees 1000*4=4000mb = 4gb, will need to find effecient way to fetch this
-*
- */
-
-func (pc *payslipConfig) generatePaySlip(imgUrl string, quality int8) error {
-	if quality < 0 || quality > 100 {
-		return fmt.Errorf("Qualit should be in range 0-100 recived: %d", quality)
-	}
-
-	// load image
-	res, err := http.Get(imgUrl)
+// Generate payslip of single employee
+func (ep *EmployeePayslip) GenerateEmployeePayslip(employee *EmployeePayrollDetail) error {
+	ep.configMaroto() // configure maroto
+	// Add headers
+	addEmployeeEariningsAndDeductionCols(employee, ep.MartorInstance) // Add Earnings & Dedctions
+	// Add Totals
+	// Add foot notes
+	// Handle Passowrd Protection
+	doc, err := ep.MartorInstance.Generate()
 	if err != nil {
-		return err
+		panic(err)
 	}
-	defer res.Body.Close()
-	bytesData, err := io.ReadAll(res.Body)
-	if err != nil {
-		return err
-	}
-	pc.image = base64.StdEncoding.EncodeToString(bytesData)
-
+	doc.Save("./pdf/test.pdf")
 	return nil
+}
+
+func (ep *EmployeePayslip) configMaroto() {
+	// refrence: https://maroto.io/#/v1/documentation?id=documentation
+	cfg := config.NewBuilder().WithPageSize(pagesize.A4).
+		WithBottomMargin(15).WithLeftMargin(6).WithRightMargin(6).WithBottomMargin(4).WithCompression(true).
+		Build()
+
+	cfg.DefaultFont.Size = 8
+
+	mrt := maroto.New(cfg)
+	ep.MartorInstance = maroto.NewMetricsDecorator(mrt)
 }
