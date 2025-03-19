@@ -2,11 +2,14 @@ package payslip
 
 import (
 	"fmt"
+	"strings"
 
+	"github.com/divan/num2words"
 	"github.com/johnfercher/maroto/v2"
 	"github.com/johnfercher/maroto/v2/pkg/components/row"
 	"github.com/johnfercher/maroto/v2/pkg/components/text"
 	"github.com/johnfercher/maroto/v2/pkg/config"
+	"github.com/johnfercher/maroto/v2/pkg/consts/align"
 	"github.com/johnfercher/maroto/v2/pkg/consts/pagesize"
 	"github.com/johnfercher/maroto/v2/pkg/core"
 	"github.com/johnfercher/maroto/v2/pkg/props"
@@ -66,6 +69,20 @@ func addTotals(employee *EmployeePayrollDetail, martorInstance core.Maroto) core
 		BorderThickness: 0.1,
 		BorderColor:     &props.Color{Red: 96, Green: 96, Blue: 96},
 	})
-	martorInstance.AddRows(row.New(4), rowOne, rowTwo)
+
+	netPaybaleInWords := "Ruppes " + num2words.ConvertFloatAnd(employee.Payroll.CalculatedNetPayableMonthly, 0) + " Only"
+
+	rowThree := row.New(6).Add(
+		text.NewCol(12, strings.ToTitle(netPaybaleInWords), props.Text{
+			Align: align.Center,
+			Top:   1,
+		}),
+	).WithStyle(&props.Cell{
+		BorderType:      "tb",
+		BorderThickness: 0.1,
+		BorderColor:     &props.Color{Red: 96, Green: 96, Blue: 96},
+	})
+
+	martorInstance.AddRows(row.New(4), rowOne, rowTwo, rowThree)
 	return rowOne
 }

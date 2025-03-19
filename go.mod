@@ -6,6 +6,7 @@ require github.com/johnfercher/maroto/v2 v2.3.1
 
 require (
 	github.com/boombuler/barcode v1.0.1 // indirect
+	github.com/divan/num2words v1.0.1 // indirect
 	github.com/f-amaral/go-async v0.3.0 // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/hhrutter/lzw v1.0.0 // indirect
